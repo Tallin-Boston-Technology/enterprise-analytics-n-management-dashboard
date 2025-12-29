@@ -58,7 +58,7 @@ export interface UserPreferences {
   dashboardLayout?: string;
 }
 
-export interface UploadUserPayload {
+export interface UpdateUserPayload {
   firstName?: string;
   lastName?: string;
   phoneNumber?: string;

@@ -39,7 +39,7 @@ export interface UserActivityData {
   returningUsers: number;
 }
 
-export interface performanceMetrics {
+export interface PerformanceMetric {
   id: UUID;
   name: string;
   value: number;
@@ -50,7 +50,7 @@ export interface performanceMetrics {
   lastUpdated: Timestamp;
 }
 
-export interface AnalyticsFilter {
+export interface AnalyticsFilters {
   dateRange: DateRange;
   category?: string;
   department?: string;
@@ -73,7 +73,7 @@ export interface Report {
   description?: string;
   createdBy: UUID;
   createdAt: Timestamp;
-  filters: AnalyticsFilter;
+  filters: AnalyticsFilters;
   data: any;
   status: "generating" | "completed" | "failed";
 }
@@ -82,7 +82,7 @@ export interface ReportGenerationRequest {
   title: string;
   type: ReportType;
   format: ReportFormat;
-  filters: AnalyticsFilter;
+  filters: AnalyticsFilters;
   includeCharts?: boolean;
   recipients?: string[];
 }
