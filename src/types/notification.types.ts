@@ -18,7 +18,7 @@ export interface Notification {
   isRead: boolean;
   actionURL?: string;
   actionLabel?: string;
-  metadata?: Record<string, unknown>;
+  metadata?: Record<string, any>;
   createdAt: Timestamp;
   readAt?: Timestamp;
 }
@@ -49,12 +49,12 @@ export type NotificationPreferences = Record<
 // }
 
 export interface CreateNotificationPayload {
-  usedId: UUID;
+  userId: UUID;
   type: NotificationTypes;
   category: NotificationCategory;
   title: string;
   message: string;
   actionURL?: string;
   actionLabel?: string;
-  metadata?: Record<string, unknown>;
+  metadata?: Record<string, any>;
 }

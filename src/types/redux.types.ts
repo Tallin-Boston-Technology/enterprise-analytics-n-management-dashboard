@@ -14,9 +14,9 @@ export interface AuthState {
 }
 
 export interface DashboardState extends LoadingState {
-  state: DashboardStats | null;
-  revenueData: unknown[];
-  userActivityData: unknown[];
+  stats: DashboardStats | null;
+  revenueData: any[];
+  userActivityData: any[];
   lastUpdated: string | null;
 }
 

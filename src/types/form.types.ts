@@ -38,11 +38,11 @@ export interface SelectOption {
 
 export interface ValidationRule {
   type: ValidationRuleType;
-  value?: unknown;
+  value?: any;
   message: string;
 }
 
-export interface FormState<T = unknown> {
+export interface FormState<T = any> {
   values: T;
   errors: Record<keyof T, string>;
   touched: Record<keyof T, boolean>;
@@ -53,7 +53,7 @@ export interface FormState<T = unknown> {
 export interface FormikHelpers<T> {
   setSubmitting: (isSubmitting: boolean) => void;
   setErrors: (errors: Record<keyof T, string>) => void;
-  setFieldValue: (field: keyof T, value: unknown) => void;
+  setFieldValue: (field: keyof T, value: any) => void;
   setFieldError: (field: keyof T, message: string) => void;
   setFieldTouched: (field: keyof T, isTouched: boolean) => void;
   resetForm: () => void;

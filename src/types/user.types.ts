@@ -15,7 +15,7 @@ export interface User {
   jobTitle?: string;
   phoneNumber?: string;
   createdAt: Timestamp;
-  updateAt: Timestamp;
+  updatedAt: Timestamp;
   lastLoginAt?: Timestamp;
 }
 
