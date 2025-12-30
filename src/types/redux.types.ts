@@ -58,10 +58,10 @@ export interface UIState {
   };
 }
 
-export interface RootState {
-  auth: AuthState;
-  dashboard: DashboardState;
-  projects: ProjectState;
-  notifications: NotificationState;
-  ui: UIState;
-}
+// export interface RootState {
+//   auth: AuthState;
+//   dashboard: DashboardState;
+//   projects: ProjectState;
+//   notifications: NotificationState;
+//   ui: UIState;
+// }

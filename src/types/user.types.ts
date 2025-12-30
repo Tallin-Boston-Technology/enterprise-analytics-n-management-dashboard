@@ -54,7 +54,6 @@ export interface UserPreferences {
     push: boolean;
     sms: boolean;
   };
-
   dashboardLayout?: string;
 }
 

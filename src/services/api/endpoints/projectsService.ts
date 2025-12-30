@@ -35,7 +35,7 @@ class ProjectsService {
   }
 
   async createProject(data: CreateProjectPayload): Promise<Project> {
-    const response = await apiClient.post<Project>(`${this.BASE_PATH}`, data);
+    const response = await apiClient.post<Project>(this.BASE_PATH, data);
     return response.data;
   }
 
@@ -109,7 +109,7 @@ class ProjectsService {
     milestoneData: Omit<ProjectMilestone, "id">
   ): Promise<ProjectMilestone> {
     const response = await apiClient.post<ProjectMilestone>(
-      `${this.BASE_PATH}/${projectId}/milestones`,
+      `${this.BASE_PATH}/${projectId}/milestone`,
       milestoneData
     );
     return response.data;
@@ -121,7 +121,7 @@ class ProjectsService {
     milestoneData: Partial<ProjectMilestone>
   ): Promise<ProjectMilestone> {
     const response = await apiClient.put<ProjectMilestone>(
-      `${this.BASE_PATH}/${projectId}/milestones/${milestoneId}`,
+      `${this.BASE_PATH}/${projectId}/milestone/${milestoneId}`,
       milestoneData
     );
     return response.data;

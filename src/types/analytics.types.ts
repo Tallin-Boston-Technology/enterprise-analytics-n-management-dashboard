@@ -1,4 +1,4 @@
-import { type DateRange, type Timestamp, type UUID } from "./common.types";
+import type { DateRange, Timestamp, UUID } from "./common.types";
 
 export interface DashboardStats {
   totatlRevenue: number;

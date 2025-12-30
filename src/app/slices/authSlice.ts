@@ -1,10 +1,15 @@
-import type { AuthCredentials, AuthResponse, User } from "../../types";
-import { type AuthState } from "./../../types/redux.types";
 import {
   createSlice,
   createAsyncThunk,
   type PayloadAction,
 } from "@reduxjs/toolkit";
+import type {
+  AuthCredentials,
+  AuthResponse,
+  AuthState,
+  User,
+} from "../../types";
+import { authService } from "../../services/api";
 
 const initialState: AuthState = {
   user: null,
@@ -19,30 +24,31 @@ export const loginUser = createAsyncThunk<AuthResponse, AuthCredentials>(
   "auth/login",
   async (credentials, { rejectWithValue }) => {
     try {
-      // TODO: Replace with actual API call
-      // const response = await authService.login(credentials);
+      const response = await authService.login(credentials);
+      return response;
 
-      // Mock response for now
-      const mockResponse: AuthResponse = {
-        user: {
-          id: "1",
-          email: credentials.email,
-          firstName: "John",
-          lastName: "Doe",
-          fullName: "John Doe",
-          role: "admin",
-          status: "active",
-          createdAt: new Date().toISOString(),
-          updatedAt: new Date().toISOString(),
-        },
-        accessToken: "mock-access-token",
-        refreshToken: "mock-refresh-token",
-        expiresIn: 3600,
-      };
+      // Mock response
+      // const mockResponse: AuthResponse = {
+      //   user: {
+      //     id: "1",
+      //     email: credentials.email,
+      //     firstName: "John",
+      //     lastName: "Doe",
+      //     fullName: "John Doe",
+      //     role: "admin",
+      //     status: "active",
+      //     createdAt: new Date().toISOString(),
+      //     updatedAt: new Date().toISOString(),
+      //   },
+      //   accessToken: "mock-access-token",
+      //   refreshToken: "mock-refresh-token",
+      //   expiresIn: 3600,
+      // };
 
-      return mockResponse;
+      // return mockResponse;
     } catch (error: any) {
-      return rejectWithValue(error.response?.data?.message || "Login Failed");
+      // return rejectWithValue(error.response?.data?.message || "Login Failed");
+      return rejectWithValue(error.error?.message || "Login Failed");
     }
   }
 );
@@ -51,11 +57,11 @@ export const logoutUser = createAsyncThunk(
   "auth/logout",
   async (_, { rejectWithValue }) => {
     try {
-      // TODO: Replace with actual API call
-      // await authService.logout();
+      await authService.logout();
       return;
     } catch (error: any) {
-      return rejectWithValue(error.response?.data?.message || "Logout failed");
+      // return rejectWithValue(error.response?.data?.message || "Logout failed");
+      return rejectWithValue(error.error?.message || "Logout Failed");
     }
   }
 );
@@ -64,13 +70,14 @@ export const refreshAccessToken = createAsyncThunk<string, string>(
   "auth/refreshToken",
   async (refreshToken, { rejectWithValue }) => {
     try {
-      // TODO: Replace with actual API call
-      // const response = await authService.refreshToken(refreshToken);
-      return "new-mock-access-token";
+      const newAccessToken = await authService.refreshToken(refreshToken);
+      return newAccessToken;
+      // return "new-mock-access-token";
     } catch (error: any) {
-      return rejectWithValue(
-        error.response?.data?.message || "Token refresh failed"
-      );
+      // return rejectWithValue(
+      //   error.response?.data?.message || "Token refresh failed"
+      // );
+      return rejectWithValue(error.error?.message || "Token refresh Failed");
     }
   }
 );
@@ -91,6 +98,7 @@ const authSlice = createSlice({
       }
     },
   },
+
   extraReducers: (builder) => {
     builder
       .addCase(loginUser.pending, (state) => {
@@ -130,10 +138,10 @@ const authSlice = createSlice({
         state.accessToken = action.payload;
         localStorage.setItem("accessToken", action.payload);
       })
-      .addCase(refreshAccessToken.fulfilled, (state, action) => {
-        state.accessToken = action.payload;
-        localStorage.setItem("accessToken", action.payload);
-      })
+      // .addCase(refreshAccessToken.fulfilled, (state, action) => {
+      //   state.accessToken = action.payload;
+      //   localStorage.setItem("accessToken", action.payload);
+      // })
       .addCase(refreshAccessToken.rejected, (state) => {
         state.user = null;
         state.accessToken = null;

@@ -1,17 +1,16 @@
-import { UIState } from "./../../types/redux.types";
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 
-const initialState = (UIState = {
+const initialState = {
   sidebarOpen: true,
   theme: (localStorage.getItem("theme") as "light" | "dark") || "light",
   isMobile: window.innerWidth < 768,
   notifications: {
     open: false,
     message: "",
-    severity: "info",
+    severity: "info" as "success" | "error" | "warning" | "info",
   },
-  modals: {},
-});
+  modals: {} as Record<string, boolean>,
+};
 
 const uiSlice = createSlice({
   name: "ui",
@@ -29,6 +28,7 @@ const uiSlice = createSlice({
       state.theme = action.payload;
       localStorage.setItem("theme", action.payload);
     },
+
     toggleTheme: (state) => {
       state.theme = state.theme === "light" ? "dark" : "light";
       localStorage.setItem("theme", state.theme);

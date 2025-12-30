@@ -23,30 +23,30 @@ export interface Notification {
   readAt?: Timestamp;
 }
 
-type NotificationChannel = "email" | "push" | "inApp";
+// type NotificationChannel = "email" | "push" | "inApp";
 
-export type NotificationPreferences = Record<
-  NotificationChannel,
-  {
+// export type NotificationPreferences = Record<
+//   NotificationChannel,
+//   {
+//     enabled: boolean;
+//     categories: NotificationCategory[];
+//   }
+// >;
+
+export interface NotificationPreferences {
+  email: {
     enabled: boolean;
     categories: NotificationCategory[];
-  }
->;
-
-// export interface NotificationPreferences {
-//   email: {
-//     enabled: boolean;
-//     categories: NotificationCategory[];
-//   };
-//   push: {
-//     enabled: boolean;
-//     categories: NotificationCategory[];
-//   };
-//   inApp: {
-//     enabled: boolean;
-//     categories: NotificationCategory[];
-//   };
-// }
+  };
+  push: {
+    enabled: boolean;
+    categories: NotificationCategory[];
+  };
+  inApp: {
+    enabled: boolean;
+    categories: NotificationCategory[];
+  };
+}
 
 export interface CreateNotificationPayload {
   userId: UUID;

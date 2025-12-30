@@ -1,4 +1,4 @@
-export type FormFieldType =
+type FormFieldType =
   | "text"
   | "email"
   | "password"
@@ -10,7 +10,7 @@ export type FormFieldType =
   | "checkbox"
   | "radio"
   | "file";
-export type ValidationRuleType =
+type ValidationRuleType =
   | "required"
   | "email"
   | "min"
