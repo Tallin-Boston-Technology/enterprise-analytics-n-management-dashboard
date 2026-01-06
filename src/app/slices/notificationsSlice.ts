@@ -99,10 +99,10 @@ export const fetchNotifications = createAsyncThunk<Notification[]>(
       //   },
       // ];
       // return mockNotification;
-    } catch (error: any) {
+    } catch (error: unknown) {
+      const apiError = error as { error?: { message?: string } };
       return rejectWithValue(
-        // error.response?.data?.message || "Failed to fetch notification"
-        error.error?.message || "Failed to fetch notifications"
+        apiError.error?.message || "Failed to fetch notifications"
       );
     }
   }
@@ -114,10 +114,10 @@ export const markAsRead = createAsyncThunk<string, string>(
     try {
       await notificationsService.markAsRead(notificationId);
       return notificationId;
-    } catch (error: any) {
+    } catch (error: unknown) {
+      const apiError = error as { error?: { message?: string } };
       return rejectWithValue(
-        // error.response?.data?.message || "Failed to mark notification as read"
-        error.error?.message || "Failed to mark notification as read"
+        apiError.error?.message || "Failed to mark notification as read"
       );
     }
   }
@@ -129,11 +129,10 @@ export const markAllAsRead = createAsyncThunk(
     try {
       await notificationsService.markAllAsRead();
       return;
-    } catch (error: any) {
+    } catch (error: unknown) {
+      const apiError = error as { error?: { message?: string } };
       return rejectWithValue(
-        // error.response?.data?.message ||
-        // "Failed to mark all notifications as read"
-        error.error?.message || "Failed to mark all notifications as read"
+        apiError.error?.message || "Failed to mark all as read"
       );
     }
   }
@@ -145,10 +144,10 @@ export const deleteNotification = createAsyncThunk<string, string>(
     try {
       await notificationsService.deleteNotification(notificationId);
       return notificationId;
-    } catch (error: any) {
+    } catch (error: unknown) {
+      const apiError = error as { error?: { message?: string } };
       return rejectWithValue(
-        // error.response?.data?.message || "Failed to delete notification"
-        error.error?.message || "Failed to delete notification"
+        apiError.error?.message || "Failed to delete notification"
       );
     }
   }
@@ -163,10 +162,10 @@ export const createNotification = createAsyncThunk<
       notificationData
     );
     return response;
-  } catch (error: any) {
+  } catch (error: unknown) {
+    const apiError = error as { error?: { message?: string } };
     return rejectWithValue(
-      // error.response?.data?.message || "Failed to create a notication"
-      error.error?.message || "Failed to create a notification"
+      apiError.error?.message || "Failed to create notification"
     );
   }
 });

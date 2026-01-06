@@ -18,7 +18,7 @@ export interface Notification {
   isRead: boolean;
   actionURL?: string;
   actionLabel?: string;
-  metadata?: Record<string, any>;
+  metadata?: Record<string, unknown>;
   createdAt: Timestamp;
   readAt?: Timestamp;
 }
@@ -56,5 +56,5 @@ export interface CreateNotificationPayload {
   message: string;
   actionURL?: string;
   actionLabel?: string;
-  metadata?: Record<string, any>;
+  metadata?: Record<string, unknown>;
 }

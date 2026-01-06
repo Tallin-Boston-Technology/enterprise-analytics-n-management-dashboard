@@ -1,4 +1,8 @@
-import type { DashboardStats } from "./analytics.types";
+import type {
+  DashboardStats,
+  RevenueData,
+  UserActivityData,
+} from "./analytics.types";
 import type { LoadingState } from "./common.types";
 import type { Notification } from "./notification.types";
 import type { Project } from "./project.types";
@@ -15,8 +19,8 @@ export interface AuthState {
 
 export interface DashboardState extends LoadingState {
   stats: DashboardStats | null;
-  revenueData: any[];
-  userActivityData: any[];
+  revenueData: RevenueData[];
+  userActivityData: UserActivityData[];
   lastUpdated: string | null;
 }
 

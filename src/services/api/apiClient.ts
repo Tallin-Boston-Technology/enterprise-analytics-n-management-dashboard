@@ -27,7 +27,7 @@ class ApiClient {
 
   async post<T>(
     url: string,
-    data?: any,
+    data?: unknown,
     config?: AxiosRequestConfig
   ): Promise<ApiResponse<T>> {
     try {
@@ -44,7 +44,7 @@ class ApiClient {
 
   async put<T>(
     url: string,
-    data?: any,
+    data?: unknown,
     config?: AxiosRequestConfig
   ): Promise<ApiResponse<T>> {
     try {
@@ -61,7 +61,7 @@ class ApiClient {
 
   async patch<T>(
     url: string,
-    data?: any,
+    data?: unknown,
     config?: AxiosRequestConfig
   ): Promise<ApiResponse<T>> {
     try {
@@ -92,7 +92,7 @@ class ApiClient {
   async upload<T>(
     url: string,
     formData: FormData,
-    onUploadProgress?: (ProgressEvent: any) => void
+    onUploadProgress?: (ProgressEvent: unknown) => void
   ): Promise<ApiResponse<T>> {
     try {
       const response: AxiosResponse<ApiResponse<T>> = await axiosInstance.put(
@@ -131,26 +131,38 @@ class ApiClient {
     }
   }
 
-  private handleError(error: any): ApiError {
-    if (error.response) {
+  private handleError(error: unknown): ApiError {
+    const axiosError = error as {
+      response?: {
+        status: number;
+        data?: {
+          message?: string;
+          details?: Record<string, unknown>;
+        };
+      };
+      request?: unknown;
+      message?: string;
+    };
+
+    if (axiosError.response) {
       return {
         success: false,
         error: {
-          code: error.response.status.toString(),
+          code: axiosError.response.status.toString(),
           message:
-            error.reponse.data?.message ||
-            error.message ||
-            "An error has occurred",
-          details: error.response.data?.deatils || {},
+            axiosError.response.data?.message ||
+            axiosError.message ||
+            "AN Error has occurred",
+          details: axiosError.response.data?.details || {},
         },
         timestamp: new Date().toISOString(),
       };
-    } else if (error.request) {
+    } else if (axiosError.request) {
       return {
         success: false,
         error: {
           code: "NETWORK_ERROR",
-          message: "Network error. Please check tour connection",
+          message: "Network error. Please check your connection",
           details: {},
         },
         timestamp: new Date().toISOString(),
@@ -160,7 +172,7 @@ class ApiClient {
         success: false,
         error: {
           code: "REQUEST_ERROR",
-          message: error.message || "An unexpected error has occurred",
+          message: axiosError.message || "An unexpected error has occurred",
           details: {},
         },
         timestamp: new Date().toISOString(),

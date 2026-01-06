@@ -36,10 +36,10 @@ export const fetchDashboardStats = createAsyncThunk<DashboardStats>(
       // };
 
       // return mockStats;
-    } catch (error: any) {
+    } catch (error: unknown) {
+      const apiError = error as { error?: { message?: string } };
       return rejectWithValue(
-        // error.response?.data?.message || "Failed to fetch dashboard stats"
-        error.error?.message || "Failed to fetch dashboard stats"
+        apiError.error?.message || "Failed to fetch dashboard stats"
       );
     }
   }
@@ -98,10 +98,10 @@ export const fetchRevenueData = createAsyncThunk<RevenueData[]>(
       //   },
       // ];
       // return mockData;
-    } catch (error: any) {
+    } catch (error: unknown) {
+      const apiError = error as { error?: { message?: string } };
       return rejectWithValue(
-        // error.response?.data?.message || "Failed to fetch revenue data"
-        error.error?.message || "Failed to fetch revenue data"
+        apiError.error?.message || "Failed to fetch revenue data"
       );
     }
   }
@@ -160,10 +160,10 @@ export const fetchUserActivityData = createAsyncThunk<UserActivityData[]>(
       //   },
       // ];
       // return mockData;
-    } catch (error: any) {
+    } catch (error: unknown) {
+      const apiError = error as { error?: { message?: string } };
       return rejectWithValue(
-        // error.response?.data?.message || "Failed to fetch User activity data"
-        error.error?.message || "Failed to fetch User activity stats"
+        apiError.error?.message || "Failed to fetch User activity stats"
       );
     }
   }

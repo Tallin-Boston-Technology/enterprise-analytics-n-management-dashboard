@@ -1,4 +1,3 @@
-import { Priority } from "./../../types/common.types";
 import {
   createSlice,
   createAsyncThunk,
@@ -39,6 +38,7 @@ export const fetchProjects = createAsyncThunk<
     try {
       const state = getState() as any;
       const { filters } = state.projects;
+
       const response = await projectsService.getProjects({
         page,
         limit,
@@ -153,10 +153,10 @@ export const fetchProjects = createAsyncThunk<
       // };
 
       // return mockResponse;
-    } catch (error: any) {
+    } catch (error: unknown) {
+      const apiError = error as { error?: { message?: string } };
       return rejectWithValue(
-        // error.response?.data?.message || "Failed to fetch projects"
-        error.error?.message || "Failed to fetch projects"
+        apiError.error?.message || "Failed to fetch projects"
       );
     }
   }
@@ -201,10 +201,10 @@ export const fetchProjectById = createAsyncThunk<Project, string>(
       // };
 
       // return mockProject;
-    } catch (error: any) {
+    } catch (error: unknown) {
+      const apiError = error as { error?: { message?: string } };
       return rejectWithValue(
-        // error.response?.data?.message || "Failed to fetch project by Id"
-        error.error?.message || "Failed to fetch project by id"
+        apiError.error?.message || "Failed to fetch project by id"
       );
     }
   }
@@ -242,10 +242,10 @@ export const createProject = createAsyncThunk<Project, CreateProjectPayload>(
       // };
 
       // return mockProject;
-    } catch (error: any) {
+    } catch (error: unknown) {
+      const apiError = error as { error?: { message?: string } };
       return rejectWithValue(
-        // error.response?.data?.message || "Failed to create project"
-        error.error?.message || "Failed to create project"
+        apiError.error?.message || "Failed to create project"
       );
     }
   }
@@ -289,10 +289,10 @@ export const updateProject = createAsyncThunk<
     //   updatedAt: new Date().toISOString(),
     // };
     // return mockProject;
-  } catch (error: any) {
+  } catch (error: unknown) {
+    const apiError = error as { error?: { message?: string } };
     return rejectWithValue(
-      // error.response?.data?.message || "Failed to update project"
-      error.error?.message || "Failed to update project"
+      apiError.error?.message || "Failed to update project"
     );
   }
 });
@@ -303,10 +303,10 @@ export const deleteProject = createAsyncThunk<string, string>(
     try {
       await projectsService.deleteProject(projectId);
       return projectId;
-    } catch (error: any) {
+    } catch (error: unknown) {
+      const apiError = error as { error?: { message?: string } };
       return rejectWithValue(
-        // error.response?.data?.message || "Failed to delete project"
-        error.error?.message || "Failed to delete project"
+        apiError.error?.message || "Failed to delete project"
       );
     }
   }

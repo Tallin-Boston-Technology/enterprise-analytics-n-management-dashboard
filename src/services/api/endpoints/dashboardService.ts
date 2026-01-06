@@ -102,8 +102,8 @@ class DashboardService {
     await apiClient.delete<void>(`${this.BASE_PATH}/report/${reportId}`);
   }
 
-  async getAnalyticsOverview(filters: AnalyticsFilters): Promise<any> {
-    const response = await apiClient.get<any>(
+  async getAnalyticsOverview(filters: AnalyticsFilters): Promise<unknown> {
+    const response = await apiClient.get<unknown>(
       `${this.BASE_PATH}/analytics/overview`,
       { params: filters }
     );

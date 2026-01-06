@@ -74,7 +74,7 @@ export interface Report {
   createdBy: UUID;
   createdAt: Timestamp;
   filters: AnalyticsFilters;
-  data: any;
+  data: unknown;
   status: "generating" | "completed" | "failed";
 }
 

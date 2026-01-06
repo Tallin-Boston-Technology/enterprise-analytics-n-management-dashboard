@@ -46,9 +46,9 @@ export const loginUser = createAsyncThunk<AuthResponse, AuthCredentials>(
       // };
 
       // return mockResponse;
-    } catch (error: any) {
-      // return rejectWithValue(error.response?.data?.message || "Login Failed");
-      return rejectWithValue(error.error?.message || "Login Failed");
+    } catch (error: unknown) {
+      const apiError = error as { error?: { message?: string } };
+      return rejectWithValue(apiError.error?.message || "Login failed");
     }
   }
 );
@@ -59,9 +59,9 @@ export const logoutUser = createAsyncThunk(
     try {
       await authService.logout();
       return;
-    } catch (error: any) {
-      // return rejectWithValue(error.response?.data?.message || "Logout failed");
-      return rejectWithValue(error.error?.message || "Logout Failed");
+    } catch (error: unknown) {
+      const apiError = error as { error?: { message?: string } };
+      return rejectWithValue(apiError.error?.message || "Logout failed");
     }
   }
 );
@@ -73,11 +73,9 @@ export const refreshAccessToken = createAsyncThunk<string, string>(
       const newAccessToken = await authService.refreshToken(refreshToken);
       return newAccessToken;
       // return "new-mock-access-token";
-    } catch (error: any) {
-      // return rejectWithValue(
-      //   error.response?.data?.message || "Token refresh failed"
-      // );
-      return rejectWithValue(error.error?.message || "Token refresh Failed");
+    } catch (error: unknown) {
+      const apiError = error as { error?: { message?: string } };
+      return rejectWithValue(apiError.error?.message || "Token refresh failed");
     }
   }
 );
