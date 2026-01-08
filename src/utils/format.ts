@@ -35,7 +35,7 @@ export const foramtCompactNumber = (num: number): string => {
   return num.toString();
 };
 
-export const formatData = (
+export const formatDate = (
   date: Date | string,
   format: "short" | "long" | "full" = "short"
 ): string => {
