@@ -8,7 +8,10 @@ import { store } from "../../app/store";
 import { logoutUser, refreshAccessToken } from "../../app/slices/authSlice";
 
 let isRefreshing = false;
-let failedQueue: any[] = [];
+let failedQueue: Array<{
+  resolve: (token: string | null) => void;
+  reject: (error: unknown) => void;
+}> = [];
 
 const processQueue = (error: unknown, token: string | null = null) => {
   failedQueue.forEach((prom) => {
@@ -58,7 +61,9 @@ export const setupResponseInterceptor = (axiosInstance: AxiosInstance) => {
     },
 
     async (error: AxiosError) => {
-      const originalRequest: any = error.config;
+      const originalRequest = error.config as InternalAxiosRequestConfig & {
+        _retry?: boolean;
+      };
 
       if (error.response?.status === 401 && !originalRequest._retry) {
         if (isRefreshing) {
@@ -81,7 +86,7 @@ export const setupResponseInterceptor = (axiosInstance: AxiosInstance) => {
         isRefreshing = true;
 
         const state = store.getState();
-        const refreshToken = state.auth.refrehToken;
+        const refreshToken = state.auth.refreshToken;
 
         if (!refreshToken) {
           store.dispatch(logoutUser());

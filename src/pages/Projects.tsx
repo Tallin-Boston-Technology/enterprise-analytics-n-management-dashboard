@@ -52,7 +52,9 @@ export const Projects: React.FC = () => {
     dispatch(setCurrentPage(1));
   };
 
-  const getStatusColour = (status: string) => {
+  const getStatusColour = (
+    status: string
+  ): "success" | "primary" | "warning" | "error" | "default" => {
     switch (status) {
       case "completed":
         return "success";
@@ -67,7 +69,9 @@ export const Projects: React.FC = () => {
     }
   };
 
-  const getPriorityColour = (priority: string) => {
+  const getPriorityColour = (
+    priority: string
+  ): "error" | "warning" | "info" | "success" | "default" => {
     switch (priority) {
       case "critical":
         return "error";
@@ -153,14 +157,14 @@ export const Projects: React.FC = () => {
                       <TableCell>
                         <Chip
                           label={project.status}
-                          color={getStatusColour(project.status) as any}
+                          color={getStatusColour(project.status)}
                           size="small"
                         />
                       </TableCell>
                       <TableCell>
                         <Chip
                           label={project.priority}
-                          color={getPriorityColour(project.priority) as any}
+                          color={getPriorityColour(project.priority)}
                           size="small"
                         />
                       </TableCell>

@@ -1,13 +1,13 @@
 import type { DateRange, Timestamp, UUID } from "./common.types";
 
 export interface DashboardStats {
-  totatlRevenue: number;
+  totalRevenue: number;
   totalUsers: number;
   activeProjects: number;
   completionRate: number;
   revenueChange: number;
   usersChange: number;
-  projectChange: number;
+  projectsChange: number;
   completionChange: number;
 }
 

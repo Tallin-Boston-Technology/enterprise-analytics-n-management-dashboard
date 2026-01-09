@@ -1,4 +1,10 @@
-import { Alert, AlertTitle, Box } from "@mui/material";
+import {
+  Alert,
+  AlertTitle,
+  Box,
+  type SxProps,
+  type Theme,
+} from "@mui/material";
 
 interface ErrorMessageProps {
   message: string;
@@ -6,6 +12,7 @@ interface ErrorMessageProps {
   severity?: "error" | "warning" | "info" | "success";
   onClose?: () => void;
   fullWidth?: boolean;
+  sx?: SxProps<Theme>;
 }
 
 export const ErrorMessage: React.FC<ErrorMessageProps> = ({
@@ -14,9 +21,10 @@ export const ErrorMessage: React.FC<ErrorMessageProps> = ({
   severity = "error",
   onClose,
   fullWidth = false,
+  sx,
 }) => {
   const alert = (
-    <Alert severity={severity} onClose={onClose}>
+    <Alert severity={severity} onClose={onClose} sx={sx}>
       {title && <AlertTitle>{title}</AlertTitle>}
       {message}
     </Alert>

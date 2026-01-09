@@ -17,8 +17,6 @@ export const useMediaQuery = (query: string): boolean => {
       setMatches(event.matches);
     };
 
-    setMatches(mediaQuery.matches);
-
     mediaQuery.addEventListener("change", handleChange);
 
     return () => {

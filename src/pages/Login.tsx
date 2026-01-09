@@ -25,8 +25,8 @@ const initialValue: LoginFormValues = {
 
 export const Login: React.FC = () => {
   const navigate = useNavigate();
-  const { login } = useAuth;
-  const [ error, setError ] = useState<string>("");
+  const { login } = useAuth();
+  const [error, setError] = useState<string>("");
 
   const handleSubmit = async (values: LoginFormValues) => {
     try {
@@ -38,7 +38,7 @@ export const Login: React.FC = () => {
       } else {
         setError("Invalid email or password");
       }
-    } catch (err) {
+    } catch {
       setError("An error has occurred. Please try again.");
     }
   };

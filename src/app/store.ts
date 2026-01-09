@@ -1,5 +1,15 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { type TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
+import {
+  type TypedUseSelectorHook,
+  useDispatch,
+  useSelector,
+} from "react-redux";
+
+import authReducer from "./slices/authSlice";
+import dashboardReducer from "./slices/dashboardSlice";
+import projectsReducer from "./slices/projectsSlice";
+import notificationsReducer from "./slices/notificationsSlice";
+import uiReducer from "./slices/uiSlice";
 
 export const store = configureStore({
   reducer: {
@@ -15,7 +25,7 @@ export const store = configureStore({
         ignoredActions: ["persist/PERSIST", "persist/REHYDRATE"],
       },
     }),
-  devTools: process.env.NODE_ENV !== "production",
+  devTools: import.meta.env.MODE !== "production",
 });
 
 export type RootState = ReturnType<typeof store.getState>;
